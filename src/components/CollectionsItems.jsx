@@ -3,7 +3,7 @@ import React from 'react';
 const CollectionsItems = ({ id, image, name }) => {
     return (
         <div className="group cursor-pointer">
-            <div className="aspect-[4/5] overflow-hidden rounded-2xl shadow-lg max-h-60 sm:max-h-72">
+            <div className="aspect-[4/5] overflow-hidden rounded-2xl shadow-lg max-h-60 sm:max-h-72 md:max-h-80 lg:max-h-96 w-full sm:w-48 md:w-52 lg:w-60 mx-auto">
                 <img
                     src={image}
                     alt={name}

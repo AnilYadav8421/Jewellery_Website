@@ -11,7 +11,7 @@ const ProductItem = ({ id, image, name, price, section }) => {
       className="text-gray-800 cursor-pointer"
     >
       <div className="group cursor-pointer">
-        <div className="aspect-[4/5] overflow-hidden rounded-2xl shadow-lg max-h-60 sm:max-h-72">
+        <div className="aspect-[4/5] overflow-hidden rounded-2xl shadow-lg max-h-60 sm:max-h-72 md:max-h-80 lg:max-h-96 w-full sm:w-48 md:w-52 lg:w-60 mx-auto ">
           <img src={image} alt={name} loading='lazy' className="w-full h-full object-cover transform transition duration-300 group-hover:scale-105" />
         </div>
         <p className="pt-3 pb-1 text-sm text-center font-medium">{name}</p>
