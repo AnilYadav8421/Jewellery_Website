@@ -16,7 +16,7 @@ const App = () => {
     <div className="flex flex-col min-h-screen">
       {/* Navbar */}
       <div className="w-full">
-        <div className="mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto">
           <Navbar />
         </div>
       </div>
@@ -39,7 +39,7 @@ const App = () => {
 
       {/* Footer */}
       <div className="w-full">
-        <div className="mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto">
           <Footer />
         </div>
       </div>

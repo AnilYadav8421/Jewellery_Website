@@ -8,28 +8,16 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 
 const ImageCarousel = () => {
-  const [images, setImages] = useState([]);
-
-  // useEffect(() => {
-  //   // const bannerData = [
-  //   //   { id: 20, image: "http://api.saishraddhajewellers.com/media/banners/10.webp", context: "Timeless Craftsmanship" },
-  //   //   { id: 19, image: "http://api.saishraddhajewellers.com/media/banners/9.webp", context: "Luxury You Deserve" },
-  //   //   { id: 18, image: "http://api.saishraddhajewellers.com/media/banners/8.webp", context: "Inspired by Royalty" },
-  //   //   { id: 17, image: "http://api.saishraddhajewellers.com/media/banners/7.webp", context: "Your Story, in Gold" },
-  //   // ];
-  //   setImages(bannerData);
-  // }, []);
-
   return (
     <section className="w-full bg-white py-4">
-      <div className="max-w-7xl mx-auto px-4 sm:px-8">
+      <div className="w-full ">
         <Swiper
           modules={[Autoplay, Pagination]}
           spaceBetween={30}
           slidesPerView={1}
           autoplay={{ delay: 4000 }}
           pagination={{ clickable: true }}
-          loop={images.length > 1}
+          loop={bannerData.length > 1}
         >
           {bannerData.map((banner) => (
             <SwiperSlide key={banner.id}>
