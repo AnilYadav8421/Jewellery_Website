@@ -1,14 +1,26 @@
 import React, { useContext } from 'react';
 import { ShopContext } from '../context/ShopContext';
-import col1 from '../assets/coll1.webp';
-import col2 from '../assets/coll2.webp';
-import col3 from '../assets/coll3.jpg';
-import col4 from '../assets/coll4.jpg';
 import Title from './Title';
 import CollectionsItems from './CollectionsItems';
-
+import axios from 'axios';
 const Collections = () => {
   const { product } = useContext(ShopContext);
+  const [collection, setCollection] = React.useState([]);
+
+  async function getCollection() {
+    await axios.get("https://ssjapi.pythonanywhere.com/web/collections/")
+      .then((response) => {
+        setCollection(response.data);
+      }
+      )
+      .catch((error) => {
+        console.error("Error fetching banners:", error);
+      });
+  }
+
+  React.useEffect(() => {
+    getCollection();
+  }, []);
 
   return (
     <section className="w-full bg-white py-14 px-4 sm:px-6 lg:px-12">
@@ -23,10 +35,16 @@ const Collections = () => {
 
         {/* Grid of Products */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 sm:gap-6">
-          <CollectionsItems id="1" image={col1} name="PEACE EARRING" />
-          <CollectionsItems id="2" image={col2} name="SILVER RING" />
-          <CollectionsItems id="3" image={col3} name="SILVER RING" />
-          <CollectionsItems id="3" image={col4} name="Bangles" />
+          {
+            collection.map((item) => (
+              <CollectionsItems
+                key={item.id}
+                id={item.id}
+                image={item.image}
+                name={item.name}
+              />
+            ))
+          }
         </div>
       </div>
     </section>

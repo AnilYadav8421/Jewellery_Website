@@ -1,7 +1,12 @@
 import React from 'react';
 import Title from '../components/Title'; // Reuse your Title component
-
+import axios from 'axios';
 const CurrentRate = () => {
+    const [gold, setGold] = React.useState(6490);
+    const [silver, setSilver] = React.useState(84);
+
+
+
     return (
         <div className="max-w-5xl mx-auto px-4 sm:px-6 py-12 text-gray-800">
             <div className="text-center mb-10">
