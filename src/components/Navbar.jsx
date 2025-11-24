@@ -10,7 +10,6 @@ const Navbar = () => {
     const navigate = useNavigate();
 
     const navItems = [
-        { name: 'Home', to: '/', icon: <Home size={18} /> },
         { name: 'All Jewellery', to: '/alljewellary', icon: <Gem size={18} /> },
         { name: 'About Us', to: '/aboutus', icon: <Info size={18} /> },
         { name: 'Current-Rate', to: '/currentrate', icon: <IndianRupee size={18} /> },
@@ -27,7 +26,7 @@ const Navbar = () => {
     };
 
     return (
-        <header className="sticky top-0 bg-white z-50 shadow-sm">
+        <header className="fixed w-full top-0 bg-white z-50 shadow-sm">
             <nav className="mx-auto flex items-center justify-between px-4 sm:px-10 py-4 relative">
                 {/* Logo */}
                 <Link to="/">

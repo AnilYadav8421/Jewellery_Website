@@ -1,92 +1,172 @@
-import React from 'react';
-import productimg from '../assets/productImg.webp';
-import Breadcrumbs from '../components/Breadcrumbs';
-import { useLocation, useParams } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
-const Products = () => {
-  const location = useLocation();
+export default function ProductPage() {
   const { productId } = useParams();
+  const [product, setProduct] = useState(null);
 
-  const {name, image, price, section} = location.state || {};
+  useEffect(() => {
+    if (!productId) return;
+
+    fetch(`https://ssjapi.pythonanywhere.com/product/${productId}/`)
+      .then((res) => res.json())
+      .then((data) => setProduct(data))
+      .catch((err) => console.log(err));
+  }, [productId]);
+
+  if (!product)
+    return (
+      <div className="p-10 text-center text-gray-500 text-lg">Loading product...</div>
+    );
 
   return (
-    <div className="pt-16 px-6 sm:px-12 md:px-24 max-w-7xl mx-auto bg-white text-gray-800">
-      <Breadcrumbs productName={name} section={section} />
+    <div className="pt-20 px-6 md:px-20 max-w-6xl mx-auto">
 
-      {/* Product Section */}
-      <div className="flex flex-col sm:flex-row gap-12 items-start">
+      {/* PRODUCT TITLE */}
+      <h1 className="text-3xl md:text-4xl font-semibold text-gray-900">
+        {product.name}
+      </h1>
 
-        {/* Product Image */}
-        <div className="w-full sm:w-1/2 flex justify-center">
-          <img
-            src={image}
-            alt={name}
-            className="rounded-2xl shadow-xl w-full max-w-md object-contain"
-          />
-        </div>
+      {/* TAGS */}
+      <div className="flex gap-2 mt-3 flex-wrap">
+        {product.tags?.map((tag) => (
+          <span
+            key={tag.id}
+            className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm"
+          >
+            {tag.name}
+          </span>
+        ))}
+      </div>
 
-        {/* Product Info */}
-        <div className="w-full sm:w-1/2 space-y-2">
-          {/* Product Title */}
-          <h1 className="text-4xl font-semibold text-gray-900">
-            {name}
-          </h1>
+      {/* MAIN PRODUCT AREA */}
+      <div className="mt-10 flex flex-col md:flex-row gap-10">
 
-          {/* Brand + Product Code */}
-          <div className="flex items-center gap-4 text-sm text-gray-500">
-            <span>by <span className="font-medium text-gray-700">Sai Shraddha Jewellery</span></span>
-            <span className="border-l border-gray-300 h-4"></span>
-            <span>Product Id: {productId}</span>
+        {/* LEFT IMAGES SECTION */}
+        <div className="flex flex-col md:flex-row gap-6 w-full md:w-1/2">
+
+          {/* Other Images */}
+          <div className="flex md:flex-col gap-3">
+            {product.other_images?.map((img) => (
+              <img
+                key={img.id}
+                src={img.images}
+                className="w-20 h-20 md:w-24 md:h-24 border rounded-lg object-cover hover:scale-105 transition"
+                alt="sub"
+              />
+            ))}
           </div>
 
-          {/* Pricing */}
-          <div>
-            <div className="flex items-center gap-4">
-              <span className="text-xl text-gray-400 line-through">₹1,05,880</span>
-              <span className="text-3xl font-bold text-red-600">₹{price}</span>
-              <span className="text-sm font-medium text-green-600 bg-green-100 px-2 py-1 rounded-md">
-                15% OFF
-              </span>
+          {/* Main Image */}
+          <div className="flex justify-center w-full">
+            <img
+              src={product.image}
+              alt="Main"
+              className="rounded-2xl shadow-lg w-full max-w-sm object-cover"
+            />
+          </div>
+        </div>
+
+        {/* RIGHT PRODUCT DETAILS */}
+        <div className="w-full md:w-1/2 space-y-5">
+
+          {/* PRICE BOX */}
+          <div className="bg-gray-100 p-5 rounded-xl shadow-sm">
+            <h2 className="text-xl font-bold text-gray-800">Price Details</h2>
+
+            {product.size_chart?.map((chart, index) => (
+              <div key={index} className="mt-4">
+                <p className="font-semibold text-gray-700">
+                  Purity: <span className="text-gray-900">{chart.name}</span>
+                </p>
+
+                <p className="mt-1 text-lg font-bold text-green-700">
+                  ₹{chart.total_price}
+                </p>
+
+                <p className="text-sm text-gray-500">GST: ₹{chart.gst}</p>
+              </div>
+            ))}
+          </div>
+
+          {/* DESCRIPTION */}
+          <p className="text-gray-700 leading-relaxed text-base">
+            {product.description}
+          </p>
+
+          {/* BUY + WISHLIST BUTTONS */}
+          <div className="flex gap-4 pt-4">
+            <a
+              href={`https://wa.me/918446349063?text=${encodeURIComponent(
+                `Hello, I am interested in buying this product:\n\n` +
+                `Product: ${product.name}\n` +
+                `Price: ₹${product.size_chart?.[0]?.total_price}\n\n` +
+                `Product Link: ${window.location.href}\n\n` +
+                `Please share more details.`
+              )}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-xl text-lg font-medium shadow inline-block"
+            >
+              Buy on WhatsApp
+            </a>
+          </div>
+          {/* OUT OF STOCK */}
+          {product.is_out_of_stock && (
+            <p className="text-red-600 text-lg font-bold">Out of Stock</p>
+          )}
+        </div>
+      </div>
+
+      {/* SIZE CHART DETAILS */}
+      <div className="mt-16">
+        <h2 className="text-2xl font-semibold text-gray-900">
+          Price Breakdown
+        </h2>
+
+        {product.size_chart?.map((chart, index) => (
+          <div
+            key={index}
+            className="mt-6 p-6 bg-white border rounded-xl shadow-sm"
+          >
+            <h3 className="text-xl font-semibold mb-4">{chart.name}</h3>
+
+            {/* SIZE DETAILS */}
+            {chart.size?.map((s) => (
+              <div key={s.id} className="mb-4 border-b pb-3">
+                <p><b>Material:</b> {s.material.name} ({s.material.purity}k)</p>
+                <p><b>Weight:</b> {s.weight} g</p>
+                <p><b>Making Charges:</b> ₹{s.making_charges}</p>
+              </div>
+            ))}
+
+            {/* PRICE BREAKDOWN */}
+            <h4 className="text-lg font-semibold mt-4">Breakdown</h4>
+            {chart.price_breakdown?.map((pb, i) => (
+              <p key={i} className="text-gray-700 mt-1">
+                {pb.material}: ₹{pb.material_price} × {pb.weight}g ={" "}
+                <b>₹{pb.price}</b>
+              </p>
+            ))}
+          </div>
+        ))}
+      </div>
+
+      {/* REVIEWS */}
+      <div className="mt-16">
+        <h2 className="text-2xl font-semibold text-gray-900">Reviews</h2>
+
+        {product.reviews?.length === 0 ? (
+          <p className="text-gray-600 mt-2">No reviews yet.</p>
+        ) : (
+          product.reviews.map((r) => (
+            <div key={r.id} className="mt-4 p-4 border rounded-xl shadow-sm">
+              {r.comment}
             </div>
-            <p className="text-xs text-gray-500">(Inclusive of all taxes)</p>
-          </div>
-
-          {/* Description */}
-          <p className="text-gray-700 text-base leading-relaxed">
-            Crafted with precision and care, this elegant sterling silver necklace adds a touch of timeless beauty to your collection. Whether it’s for a celebration or everyday elegance, it speaks sophistication.
-          </p>
-
-          {/* Features */}
-          <ul className="text-sm text-gray-600 list-disc list-inside space-y-1">
-            <li>Certified 92.5 Sterling Silver</li>
-            <li>Hypoallergenic & Nickel Free</li>
-            <li>Elegant velvet box packaging</li>
-          </ul>
-
-          {/* Buy Button */}
-          <div className="pt-6">
-            <button className="bg-red-600 hover:bg-red-700 text-white py-3 px-10 rounded-md text-base font-medium transition-all duration-200">
-              Buy Now
-            </button>
-          </div>
-        </div>
-
+          ))
+        )}
       </div>
 
-      {/* Description Section */}
-      <div className="mt-20 border-t pt-10">
-        <h2 className="text-2xl font-semibold mb-4 text-gray-800">Product Description</h2>
-        <div className="text-gray-700 leading-relaxed space-y-4 text-base">
-          <p>
-            Our Royal Temple Splendour Necklace is inspired by traditional Indian craftsmanship — blending cultural beauty with modern sensibilities. Each piece is crafted to perfection with radiant silver and gemstone detailing.
-          </p>
-          <p>
-            Ideal for weddings, festivities, or timeless gifting, this necklace is more than jewelry — it’s an heirloom in the making.
-          </p>
-        </div>
-      </div>
     </div>
   );
-};
-
-export default Products;
+}

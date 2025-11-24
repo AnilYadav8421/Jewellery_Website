@@ -24,36 +24,25 @@ const Footer = () => {
                     </ul>
                 </div>
 
-                <div>
-                    <h4 className="text-lg font-semibold mb-4">Information</h4>
-                    <ul className="flex flex-col gap-2">
-                        <li><Link to="/contact" className="hover:text-red-500 transition">Help & FAQs</Link></li>
-                        <li><Link to="/aboutus" className="hover:text-red-500 transition">About Us</Link></li>
-                        <li><Link to="/blogs" className="hover:text-red-500 transition">Blogs</Link></li>
-                    </ul>
-                </div>
 
                 <div>
                     <h4 className="text-lg font-semibold mb-4">Contact Us</h4>
                     <ul className="flex flex-col gap-2 text-gray-600">
-                        <li>+91 84463 49063</li>
-                        <li>contact@saijewellers.com</li>
+                        <li>+91 8446349063 | +91 7387619984</li>
+                        <li>saishraddhajewellers@gmail.com</li>
                         <li>Chat with Us</li>
                     </ul>
 
                     <div className="mt-4">
                         <h4 className="text-lg font-semibold mb-2">Follow Us</h4>
                         <div className="flex gap-5">
-                            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="hover:text-blue-600">
+                            <a href="https://www.facebook.com/saishraddhajewellersofficial?rdid=Ib0WrSf92QGyvXD1&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F15q1i4aaDg%2F%3Fref%3Dwaios.fb_links_xma_control" target="_blank" rel="noopener noreferrer" className="hover:text-blue-600">
                                 <Facebook className="w-5 h-5" />
                             </a>
-                            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="hover:text-pink-600">
+                            <a href="https://www.instagram.com/saishraddhajewellersoffice?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" className="hover:text-pink-600">
                                 <Instagram className="w-5 h-5" />
                             </a>
-                            <a href="https://wa.me/918446349063" target="_blank" rel="noopener noreferrer" className="hover:text-green-500">
-                                <MessageCircle className="w-5 h-5" />
-                            </a>
-                            <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="hover:text-red-600">
+                            <a href="https://www.youtube.com/@saishraddhajewellerspvt-ltd" target="_blank" rel="noopener noreferrer" className="hover:text-red-600">
                                 <Youtube className="w-5 h-5" />
                             </a>
                         </div>
@@ -64,9 +53,9 @@ const Footer = () => {
             <div className="text-center text-xs text-gray-500 border-t py-4">
                 <p>&copy; {new Date().getFullYear()} SSJ Company Limited. All rights reserved.</p>
                 <p className="mt-1">
-                    <Link to="/terms" className="hover:underline">Terms & Conditions</Link> |
-                    <Link to="/privacy" className="hover:underline px-2">Privacy Policy</Link> |
-                    <Link to="/refund" className="hover:underline">Refund & Cancellation Policy</Link>
+                    <Link to="/terms" className="hover:underline">Terms & Conditions</Link>
+                    <Link to="/privacy" className="hover:underline px-2"> | Privacy Policy</Link>
+                    <Link to="/refund" className="hover:underline">| Refund & Cancellation Policy</Link>
                 </p>
             </div>
         </footer>
