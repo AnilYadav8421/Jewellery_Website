@@ -46,16 +46,18 @@ export default function ProductPage() {
         <div className="flex flex-col md:flex-row gap-6 w-full md:w-1/2">
 
           {/* Other Images */}
-          <div className="flex md:flex-col gap-3">
+          {/* Other Images */}
+          <div className="flex md:flex-col gap-3 overflow-x-auto md:overflow-visible">
             {product.other_images?.map((img) => (
               <img
                 key={img.id}
                 src={img.images}
-                className="w-20 h-20 md:w-24 md:h-24 border rounded-lg object-cover hover:scale-105 transition"
+                className="w-14 h-14 md:w-24 md:h-24 border rounded-lg object-cover hover:scale-105 transition shrink-0"
                 alt="sub"
               />
             ))}
           </div>
+
 
           {/* Main Image */}
           <div className="flex justify-center w-full">
